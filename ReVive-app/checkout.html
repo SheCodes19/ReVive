@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ReVive | Checkout</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="checkout-page">
+    <header class="header">
+        <a href="dashboard.html">
+          <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+        </a>
+      
+        <div class="nav-right">
+          <a href="checkout.html" class="cart-icon">
+            🛒<span class="cart-badge">2</span>
+          </a>
+          <div class="user-icon">👤</div>
+        </div>
+      </header>      
+
+    <main class="checkout-content">
+      <section class="checkout-summary">
+        <h2>Order Summary</h2>
+        <ul>
+          <li>Reusable Water Bottle - $10.00</li>
+          <li>Compost Bin - $18.00</li>
+          <li>Bamboo Toothbrush (Pack) - $12.00</li>
+        </ul>
+        <p class="total">Total: <strong>$40.00</strong></p>
+      </section>
+
+      <section class="checkout-details">
+        <h2>Shipping Information</h2>
+        <form id="checkout-form">
+            <h3>Shipping Information</h3>
+            <input type="text" placeholder="Full Name" required>
+            <input type="text" placeholder="Address" required>
+            <input type="text" placeholder="City" required>
+            <input type="text" placeholder="Postal Code" required>
+            <input type="text" placeholder="Country" required>
+          
+            <h3>Payment Information</h3>
+            <input type="text" placeholder="Cardholder Name" required>
+            <input type="text" placeholder="Card Number" required>
+            <input type="text" placeholder="Expiration (MM/YY)" required>
+            <input type="text" placeholder="CVV" required>
+          
+            <button type="submit" class="btn">Place Order</button>
+          </form>          
+      </section>
+      
+      <script>
+        const form = document.getElementById('checkout-form');
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          window.location.href = "confirmation.html";
+        });
+      </script>
+    </main>
+  </div>
+</body>
+</html>
