@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome, <span id="username">User</span>!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="welcome-page">
+    <header class="header">
+      <a href="dashboard.html">
+        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+      </a>
+      <div class="user-icon">👤</div>
+    </header>
+
+    <main class="welcome-content">
+      <img src="assets/logo.svg" class="big-logo">
+      <h1>Welcome to ReVive</h1>
+      <p class="tagline">Think Green, Do Green</p>
+      <div class="button-group">
+        <a href="login.html" class="btn">Start</a>
+        <a href="survey.html" class="btn">Survey</a>
+        <a href="#" class="btn" onclick="logout()">Log Out</a>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Show username or redirect if not logged in
+    fetch('/check-login')
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          document.getElementById('username').textContent = data.username;
+        } else {
+          window.location.href = 'index.html'; // go to login if not logged in
+        }
+      });
+  
+    // Logout function
+    function logout() {
+      fetch('/logout', { method: 'POST' })
+        .then(() => window.location.href = 'index.html');
+    }
+  </script>  
+</body>
+</html>
