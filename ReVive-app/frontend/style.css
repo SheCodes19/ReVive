@@ -6,6 +6,7 @@ html, body {
   padding: 0;
 }
 
+
 /* Welcome Page Styling */
 .welcome-page {
   width: 100%;
@@ -16,30 +17,17 @@ html, body {
 }
 
 .header {
-  background-color: #b8e1af;
+  background-color:rgb(94, 243, 65);
   padding: 15px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .logo {
   height: 40px;
-}
-
-.user-icon {
-  font-size: 24px;
-  font-weight: bold;
-  font-family: 'Segoe UI Symbol', 'Segoe UI', sans-serif;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #a52a2a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 0 0 2px white;
 }
 
 .nav-right {
@@ -90,13 +78,22 @@ h1 {
   border: none;
 }
 
+#reset-week-btn {
+  margin-top: 20px;
+}
+
 /* Shared Styles for Other Pages */
+
+
 .top-bar {
-  background: #b8e1af;
+  background-color: rgba(205, 247, 186, 0.7); /* translucent green */
+  backdrop-filter: blur(4px);               /* frosted effect */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-icons a,
@@ -114,6 +111,34 @@ h1 {
 
 main, .login-container, .profile-page, .content {
   padding: 20px;
+}
+
+.profile-page {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 20px;
+  background: white;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.profile-form input {
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .btn.secondary {
@@ -239,18 +264,32 @@ main, .login-container, .profile-page, .content {
 
 /* Login Page Fullscreen */
 .login-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: white;
+  overflow: hidden;
 }
 
+.login-page::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("assets/trees.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0.4; /* translucent overlay */
+}
 .login-split {
   display: flex;
   flex-grow: 1;
   height: calc(100% - 60px);
-  background: white;
+  z-index: 1;
+  position: relative;
 }
+
 
 .login-left, .login-right {
   flex: 1;
@@ -370,3 +409,29 @@ input:focus {
   background-color: #c1c1c1;
   transition: background 0.2s ease;
 }
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #b8e1af;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 10;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast.hidden {
+  display: none;
+}
+

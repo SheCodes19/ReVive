@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ReVive | Track Progress</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="track-page">
+    <header class="top-bar">
+      <a href="dashboard.html">
+        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+      </a>
+      <nav class="nav-icons">
+        <a href="recycle.html">♻️</a>
+        <a href="track.html">📊</a>
+        <a href="articles.html">🔍</a>
+        <a href="shop.html">🛒</a>
+        <a href="profile.html">👤</a>
+      </nav>
+    </header>
+
+    <!-- ✅ Toast message -->
+    <div id="reset-toast" class="toast hidden">
+      🌱 Chart reset for a new week!
+    </div>
+
+    <main class="track-content">
+      <div class="actions-section">
+        <h2>Log Daily Actions</h2>
+        <label><input type="checkbox" class="action" data-points="1"> Used a reusable bag</label>
+        <label><input type="checkbox" class="action" data-points="2"> Biked instead of drove</label>
+        <label><input type="checkbox" class="action" data-points="1"> Recycled an item</label>
+        <label><input type="checkbox" class="action" data-points="2"> Composted vegetable peels</label>
+        <label><input type="checkbox" class="action" data-points="1"> Other</label>
+
+        <!-- ✅ Reset Button -->
+        <button class="btn secondary" id="reset-week-btn">🔁 Reset This Week</button>
+      </div>
+
+      <div class="progress-section">
+        <h2>Weekly Progress</h2>
+        <canvas id="progressChart" width="400" height="200"></canvas>
+      </div>
+    </main>
+  </div>
+
+  <!-- ✅ Script to control chart + reset -->
+  <script>
+    const today = new Date();
+    const weekday = (today.getDay() + 6) % 7;
+
+    const lastSaveDate = localStorage.getItem("reviveLastSaveDate");
+    const isNewWeek = lastSaveDate &&
+      new Date(lastSaveDate).getDay() === 1 &&
+      today.getDay() === 1 &&
+      lastSaveDate !== today.toDateString();
+
+    if (isNewWeek || !lastSaveDate) {
+      localStorage.removeItem("reviveChartData");
+    }
+
+    localStorage.setItem("reviveLastSaveDate", today.toDateString());
+
+    const saved = localStorage.getItem("reviveChartData");
+    const progressData = saved ? JSON.parse(saved) : [0, 0, 0, 0, 0, 0, 0];
+
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        datasets: [{
+          label: 'Recycling Actions',
+          data: progressData,
+          backgroundColor: '#b8e1af'
+        }]
+      },
+      options: {
+        animation: {
+          duration: 800,
+          easing: 'easeOutQuart'
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const actions = document.querySelectorAll('.action');
+    actions.forEach(action => {
+      action.addEventListener('change', () => {
+        const index = weekday;
+        const points = parseInt(action.dataset.points);
+
+        if (action.checked) {
+          progressData[index] += points;
+        } else {
+          progressData[index] = Math.max(0, progressData[index] - points);
+        }
+
+        chart.update();
+        localStorage.setItem("reviveChartData", JSON.stringify(progressData));
+        localStorage.setItem("reviveLastSaveDate", today.toDateString());
+      });
+    });
+
+    if (isNewWeek) {
+      const toast = document.getElementById("reset-toast");
+      toast.classList.remove("hidden");
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 4000);
+    }
+
+    const resetBtn = document.getElementById('reset-week-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        for (let i = 0; i < progressData.length; i++) {
+          progressData[i] = 0;
+        }
+        chart.update();
+        localStorage.setItem("reviveChartData", JSON.stringify(progressData));
+        localStorage.setItem("reviveLastSaveDate", today.toDateString());
+
+        const toast = document.getElementById("reset-toast");
+        toast.textContent = "✅ Chart manually reset!";
+        toast.classList.remove("hidden");
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+          toast.textContent = "🌱 Chart reset for a new week!";
+        }, 4000);
+      });
+    }
+  </script>
+</body>
+</html>
