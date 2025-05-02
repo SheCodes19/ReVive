@@ -18,7 +18,7 @@
         <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
         <button class="btn">Login</button>
-        <a href="profile.html" class="btn secondary">Sign up</a>
+        <a href="profile.html" class="btn" style="display: block; width: 100%; max-width: 220px; text-align: center; margin: 10px auto; box-sizing: border-box;">Sign up</a>
       </div>
       <div class="login-right">
         <img src="assets/logo.svg" class="big-logo" alt="Logo">
@@ -32,11 +32,18 @@
       const username = document.querySelector('input[type="text"]').value;
       const password = document.querySelector('input[type="password"]').value;
   
-      if (username === "Revive" && password === "greenforest") {
+      if (username === "Emily.Watts@revive.com" && password === "greenforest") {
         window.location.href = "dashboard.html"; // Redirect on successful login
       } else {
         alert("Invalid username or password.");
       }
+
+      if (username === "Jen.Watts@revive.com" && password === "greenforest") {
+        window.location.href = "dashboard.html"; // Redirect on successful login
+      } else {
+        alert("Invalid username or password.");
+      }
+
     });
   </script>  
 </body>

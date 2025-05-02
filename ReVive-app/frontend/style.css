@@ -96,6 +96,9 @@ h1 {
   font-weight: bold;
   cursor: pointer;
   border: none;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 16px;
 }
 
 #reset-week-btn {
@@ -209,7 +212,7 @@ main, .login-container, .content {
 }
 
 .btn.secondary {
-  background: #ddd;
+  background-color: #888;
 }
 
 .recycle-options, .articles-lists, .product {
