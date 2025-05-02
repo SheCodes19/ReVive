@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="style.css">
   <title>ReVive | Profile</title>
 </head>
-<body>
+<body class="profile-screen">
   <header class="top-bar">
     <a href="dashboard.html">
         <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
@@ -14,18 +14,39 @@
       </a>
   </header>
 
-<div class="profile-page">
-    <h2>Personal Information</h2>
+  <div class="profile-page">
     <form class="profile-form">
-      <label>Name<input type="text"></label>
-      <label>Address<input type="text"></label>
-      <label>Email<input type="email"></label>
-      <label>Phone Number<input type="text"></label>
-      <label>Password<input type="password"></label>
-      <button class="btn">Save</button>
-      <button class="btn secondary">Sign Out</button>
+      <h2>Personal Information</h2>
+  
+      <label>
+        Name
+        <input type="text" placeholder="Jane Doe" />
+      </label>
+  
+      <label>
+        Address
+        <input type="text" placeholder="123 Green Ave" />
+      </label>
+  
+      <label>
+        Email
+        <input type="email" placeholder="jane@test.com" />
+      </label>
+  
+      <label>
+        Phone Number
+        <input type="text" placeholder="(781) 123-4567" />
+      </label>
+  
+      <label>
+        Password
+        <input type="password" placeholder="••••••••" />
+      </label>
+  
+      <button type="submit" class="btn">Save</button> 
+      
+      <button type="button" class="btn">Sign Out</button>
     </form>
-    
-</div>  
+  </div>  
 </body>
 </html>

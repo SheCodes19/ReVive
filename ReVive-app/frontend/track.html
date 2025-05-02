@@ -13,11 +13,21 @@
         <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
       </a>
       <nav class="nav-icons">
-        <a href="recycle.html">♻️</a>
-        <a href="track.html">📊</a>
-        <a href="articles.html">🔍</a>
-        <a href="shop.html">🛒</a>
-        <a href="profile.html">👤</a>
+        <a href="recycle.html">
+          <img src="assets/bio-leaves.svg" alt="recycle" class="logo" />
+        </a>
+        <a href="track.html">
+          <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+        </a>
+        <a href="articles.html">
+          <img src="assets/search.svg" alt="articles" class="logo" />
+        </a>
+        <a href="shop.html">
+          <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+        </a>
+        <a href="profile.html">
+          <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
+        </a>
       </nav>
     </header>
 
@@ -68,27 +78,48 @@
 
     const ctx = document.getElementById('progressChart').getContext('2d');
     const chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        datasets: [{
-          label: 'Recycling Actions',
-          data: progressData,
-          backgroundColor: '#b8e1af'
-        }]
-      },
-      options: {
-        animation: {
-          duration: 800,
-          easing: 'easeOutQuart'
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+     type: 'bar',
+     data: {
+       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+       datasets: [{
+         label: 'Recycling Actions',
+         data: progressData,
+         backgroundColor: '#209643'
+       }]
+     },
+     options: {
+       animation: {
+         duration: 800,
+         easing: 'easeOutQuart'
+       },
+       scales: {
+         x: {
+           ticks: {
+            color: '#222'        // ✅ dark x-axis numbers
+            },
+            grid: {
+              color: '#666'        // ✅ dark vertical grid lines
+            }
+         },
+         y: {
+           beginAtZero: true,
+           ticks: {
+             color: '#222'        // ✅ dark y-axis numbers
+           },
+           grid: {
+             color: '#666'        // ✅ dark horizontal grid lines
+           }
+         }
+       },
+       plugins: {
+         legend: {
+           labels: {
+             color: '#222'        // ✅ dark legend text
+           }
+         }
+       }
+     }
+   });
 
     const actions = document.querySelectorAll('.action');
     actions.forEach(action => {
