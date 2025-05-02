@@ -18,7 +18,7 @@
         <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
         <button class="btn">Login</button>
-        <button class="btn secondary">Sign up</button>
+        <a href="profile.html" class="btn secondary">Sign up</a>
       </div>
       <div class="login-right">
         <img src="assets/logo.svg" class="big-logo" alt="Logo">
@@ -27,5 +27,17 @@
       </div>
     </main>
   </div>
+  <script>
+    document.querySelector(".btn").addEventListener("click", function () {
+      const username = document.querySelector('input[type="text"]').value;
+      const password = document.querySelector('input[type="password"]').value;
+  
+      if (username === "Revive" && password === "greenforest") {
+        window.location.href = "dashboard.html"; // Redirect on successful login
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+  </script>  
 </body>
 </html>
