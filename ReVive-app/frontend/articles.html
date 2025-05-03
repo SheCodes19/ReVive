@@ -20,25 +20,108 @@
 </header>
 
 <main class="content articles-page">
-  <div class="search">
-    <input type="text" placeholder="Search articles">
-    <button class="btn">Search</button>
-  </div>
-  <div class="articles-lists">
-    <ul>
-      <li><a href="https://www.wikihow.com/Dispose-of-Diapers" target="_blank" style="color: black;">How to dispose a diaper</a></li>
-      <li>What to do with old electronics</li>
-      <li>How to compost food scraps</li>
-      <li>How to recycle clothing</li>
-      <li>Where to recycle glass bottles</li>
-    </ul>
-    <ul>
-      <li>How to avoid Plastics</li>
-      <li>Reusable goods guide</li>
-      <li>Beginner’s guide to composting</li>
-      <li>Sustainable living tips</li>
-    </ul>
-  </div>
+  <div class="search" style="display: flex; justify-content: center; margin-bottom: 30px; gap: 10px;">
+    <input 
+      type="text" 
+      placeholder="Search articles" 
+      style="width: 100%; max-width: 600px; padding: 10px 15px; border-radius: 6px; border: 1px solid #ccc; font-size: 16px;" 
+    >
+    <button class="btn" style="padding: 10px 20px; font-weight: bold;">Search</button>
+  </div>  
+  <div style="display: flex; justify-content: center;">
+    <div class="articles-sections" style="display: flex; gap: 40px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; padding: 20px; justify-content: center;">
+  
+      <section class="article-section" style="flex: 1; min-width: 250px;">
+        <h2 class="section-heading">Recycling & Waste</h2>
+        <ul style="list-style: none; padding-left: 0;">
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/diaper.jpg" alt="Diaper" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <a href="https://www.wikihow.com/Dispose-of-Diapers" target="_blank" style="text-decoration: none; color: black;">How to dispose a diaper</a>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/electronics.jpeg" alt="Electronics" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>What to do with old electronics</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/glass-bottle.png" alt="Glass Bottles" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Where to recycle glass bottles</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/e-waste.png" alt="E-Waste" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>How to recycle e-waste safely</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/recyclable.jpeg" alt="Recyclable items" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>What items are actually recyclable?</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/food-package.jpeg" alt="Food packaging" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>How to reduce food packaging waste</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/batteries.jpeg" alt="Batteries" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Where to drop off used batteries</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/biodegrable.png" alt="Biodegradable" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Guide to compostable vs biodegradable</span>
+          </li>
+        </ul>        
+        
+      </section>
+  
+      <section class="article-section" style="flex: 1; min-width: 250px;">
+        <h2 class="section-heading"> Sustainable Living</h2>
+        <ul>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/food-compost.jpeg" alt="Compost" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>How to compost food scraps</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/composting.png" alt="Composting Bucket" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Beginner’s guide to composting</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/sustainable.png" alt="Sustainable Earth" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Sustainable living tips</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/home-energy.jpeg" alt="Energy Use" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Tips for reducing home energy use</span>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/kit.jpeg" alt="Zero Waste Kit" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>How to create a zero-waste kit</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/bathroom.jpeg" alt="Eco Bathroom" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Eco-friendly bathroom swaps</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <img src="assets/water.png" alt="Water Conservation" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Water conservation techniques</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <img src="assets/footprint.jpeg" alt="Carbon Footprint" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+            <span>Daily habits to lower your carbon footprint</span>
+          </li>
+        </ul>
+      </section>
+  
+      <section class="article-section" style="flex: 1; min-width: 250px;">
+        <h2 class="section-heading"> Green Shopping</h2>
+        <ul>
+          <li>How to avoid plastics</li>
+          <li>Reusable goods guide</li>
+          <li>How to recycle clothing</li>
+          <li>How to read eco-labels when buying</li>
+          <li>Local vs. imported goods: what’s greener?</li>
+          <li>Best reusable bags for every occasion</li>
+          <li>Are bamboo products really sustainable?</li>
+          <li>How to support ethical brands</li>
+        </ul>
+      </section>
+    </div>
+  </div>  
 </main>
 </body>
 </html>

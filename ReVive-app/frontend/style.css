@@ -27,6 +27,21 @@ html, body {
   pointer-events: none;
 }
 
+.section-heading {
+  font-size: 28px;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  color: white;
+  width: 280px;
+  display: inline-block;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #a8e063, #56ab2f); /* green gradient */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+
 /* Welcome Page Styling */
 .welcome-page {
   width: 100%;
@@ -96,6 +111,9 @@ h1 {
   font-weight: bold;
   cursor: pointer;
   border: none;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 16px;
 }
 
 #reset-week-btn {
@@ -209,7 +227,7 @@ main, .login-container, .content {
 }
 
 .btn.secondary {
-  background: #ddd;
+  background-color: #888;
 }
 
 .recycle-options, .articles-lists, .product {

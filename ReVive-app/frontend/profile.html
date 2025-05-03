@@ -20,33 +20,74 @@
   
       <label>
         Name
-        <input type="text" placeholder="Jane Doe" />
+        <input type="text" placeholder="Jane Doe" id="Name"/>
+        <input type="hidden" name="name" value="Emily Watts" />
       </label>
   
       <label>
         Address
-        <input type="text" placeholder="123 Green Ave" />
+        <input type="text" placeholder="123 Green Ave" id="Address"/>
+        <input type="hidden" name="address" value="11th Street, Broadway" />
       </label>
   
       <label>
         Email
-        <input type="email" placeholder="jane@test.com" />
+        <input type="email" placeholder="jane@test.com" id="Email"/>
+        <input type="hidden" name="email" value="Emily.Watts@gmail.com" />
       </label>
   
       <label>
         Phone Number
-        <input type="text" placeholder="(781) 123-4567" />
+        <input type="text" placeholder="(781) 123-4567" id="Phone"/>
+        <input type="hidden" name="phone" value="(254) 779-4128" />
       </label>
   
       <label>
         Password
-        <input type="password" placeholder="••••••••" />
+        <input type="password" placeholder="••••••••" id="Password"/>
+        <input type="hidden" name="password" value="greenforest" />
       </label>
   
-      <button type="submit" class="btn">Save</button> 
-      
-      <button type="button" class="btn">Sign Out</button>
+      <button type="button" class="btn" onclick="fillAndConfirm()">Save</button> 
+
+      <p id="confirmationMessage" style="color: green; font-weight: bold; display: none; margin-top: 15px;"></p>
     </form>
+
+    <script>
+      const formFields = ["Name", "Address", "Email", "Phone", "Password"];
+
+      // Fill fields from saved localStorage data (if it exists)
+      window.addEventListener("DOMContentLoaded", () => {
+        formFields.forEach(field => {
+          const updated = localStorage.getItem(field);
+          if (updated) {
+            document.getElementById(field).value = updated;
+          }
+        });
+      });
+
+      function fillAndConfirm() {
+        // Hardcoded values
+        const data = {
+          Name: "Emily Watts",
+          Address: "11th Street, Broadway",
+          Email: "Emily.Watts@revive.com",
+          Phone: "(254) 779-4128",
+          Password: "greenforest"
+        };
+    
+        // Fill form and save to localStorage
+        formFields.forEach(field => {
+          document.getElementById(field).value = data[field];
+          localStorage.setItem(field, data[field]);
+        });
+    
+        // Show confirmation message
+        const message = document.getElementById("confirmationMessage");
+        message.textContent = "Your information is updated.";
+        message.style.display = "block";
+      }
+    </script>
   </div>  
 </body>
 </html>
