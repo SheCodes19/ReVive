@@ -7,18 +7,35 @@
 </head>
 <body>
   <div class="checkout-page">
-    <header class="header">
-        <a href="dashboard.html">
-          <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
-        </a>
-      
-        <div class="nav-right">
-          <a href="checkout.html" class="cart-icon">
-            🛒<span class="cart-badge">2</span>
+    <header class="top-bar">
+      <a href="dashboard.html">
+        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+      </a>
+      <nav class="nav-icons">
+        <div class="search-container">
+          <a href="#" class="search-toggle">
+            <img src="assets/search.svg" alt="Search" class="logo" />
           </a>
-          <div class="user-icon">👤</div>
-        </div>
-      </header>      
+          <input type="text" placeholder="Search..." class="search-box" />
+        </div>         
+        <a href="articles.html">
+          <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
+        </a>
+        <a href="track.html">
+          <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+        </a>
+        <a href="shop.html">
+          <img src="assets/store.svg" alt="store" class="logo" />
+        </a>
+        <a href="checkout.html" class="cart-icon">
+          <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>        
+        <a href="profile.html">
+          <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
+        </a>
+      </nav>
+    </header>
 
     <main class="checkout-content">
       <section class="checkout-summary">
@@ -34,31 +51,64 @@
       <section class="checkout-details">
         <h2>Shipping Information</h2>
         <form id="checkout-form">
-            <h3>Shipping Information</h3>
-            <input type="text" placeholder="Full Name" required>
-            <input type="text" placeholder="Address" required>
-            <input type="text" placeholder="City" required>
-            <input type="text" placeholder="Postal Code" required>
-            <input type="text" placeholder="Country" required>
-          
-            <h3>Payment Information</h3>
-            <input type="text" placeholder="Cardholder Name" required>
-            <input type="text" placeholder="Card Number" required>
-            <input type="text" placeholder="Expiration (MM/YY)" required>
-            <input type="text" placeholder="CVV" required>
-          
-            <button type="submit" class="btn">Place Order</button>
-          </form>          
+          <h3>Shipping Information</h3>
+          <input type="text" placeholder="Full Name" required>
+          <input type="text" placeholder="Address" required>
+          <input type="text" placeholder="City" required>
+          <input type="text" placeholder="Postal Code" required>
+          <input type="text" placeholder="Country" required>
+
+          <h3>Payment Information</h3>
+          <input type="text" placeholder="Cardholder Name" required>
+          <input type="text" placeholder="Card Number" required>
+          <input type="text" placeholder="Expiration (MM/YY)" required>
+          <input type="text" placeholder="CVV" required>
+
+          <button id="place-order-btn" class="btn">Place Order</button>
+        </form>          
       </section>
-      
-      <script>
-        const form = document.getElementById('checkout-form');
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          window.location.href = "confirmation.html";
-        });
-      </script>
     </main>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.querySelector(".search-toggle");
+      const box = document.querySelector(".search-box");
+
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        box.classList.toggle("visible");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".search-container")) {
+          box.classList.remove("visible");
+        }
+      });
+
+      // Update cart badge from localStorage
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) {
+        cartCount.textContent = localStorage.getItem("cartCount") || "0";
+      }
+
+      // Handle Place Order button
+      const placeBtn = document.getElementById("place-order-btn");
+      if (placeBtn) {
+        placeBtn.addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent form submission
+
+          // Reset cart count
+          localStorage.setItem("cartCount", "0");
+
+          // Update cart badge visually
+          if (cartCount) cartCount.textContent = "0";
+
+          // Redirect to confirmation page
+          window.location.href = "confirmation.html";
+        });
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,17 +5,35 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top-bar">
+  <header class="top-bar">
     <a href="dashboard.html">
-        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+      <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+    </a>
+    <nav class="nav-icons">
+      <div class="search-container">
+        <a href="#" class="search-toggle">
+          <img src="assets/search.svg" alt="Search" class="logo" />
+        </a>
+        <input type="text" placeholder="Search..." class="search-box" />
+      </div>         
+      <a href="articles.html">
+        <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
       </a>
-  <nav class="nav-icons">
-    <a href="recycle.html">♻️</a>
-    <a href="track.html">📊</a>
-    <a href="articles.html">🔍</a>
-    <a href="shop.html">🛒</a>
-    <a href="profile.html">👤</a>
-  </nav>
+      <a href="track.html">
+        <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+      </a>
+      <a href="shop.html">
+        <img src="assets/store.svg" alt="store" class="logo" />
+      </a>
+      <a href="checkout.html" class="cart-icon">
+        <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+        <span class="cart-badge" id="cart-count">0</span>
+      </a>      
+      <a href="profile.html">
+        <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
+      </a>
+    </nav>
+  </header>
 </header>
 
 <main class="content articles-page">
@@ -36,35 +53,35 @@
         <ul style="list-style: none; padding-left: 0;">
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
             <img src="assets/diaper.jpg" alt="Diaper" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <a href="https://www.wikihow.com/Dispose-of-Diapers" target="_blank" style="text-decoration: none; color: black;">How to dispose a diaper</a>
+            <a href="https://www.wikihow.com/Dispose-of-Diapers" target="_blank" style="text-decoration: none; color: blue;">How to dispose of a diaper?</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
             <img src="assets/electronics.jpeg" alt="Electronics" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>What to do with old electronics</span>
+            <a href="https://www.wikihow.tech/Dispose-of-Electronics" target="_blank" style="text-decoration: none; color: blue;">What to do with old electronics?</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
             <img src="assets/glass-bottle.png" alt="Glass Bottles" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>Where to recycle glass bottles</span>
+            <a href="https://www.wikihow.com/Recycle-Glass-Bottles" target="_blank" style="text-decoration: none; color: blue;">How and where to recycle glass bottles?</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <img src="assets/e-waste.png" alt="E-Waste" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>How to recycle e-waste safely</span>
+            <a href="https://www.wikihow.life/Reduce-Electronic-Waste" target="_blank" style="text-decoration: none; color: blue;">How to reduce e-waste?</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <img src="assets/recyclable.jpeg" alt="Recyclable items" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>What items are actually recyclable?</span>
+            <a href="https://www.wikihow.life/What-Can-You-Recycle" target="_blank" style="text-decoration: none; color: blue;">What can and can't you recycle?</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <img src="assets/food-package.jpeg" alt="Food packaging" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>How to reduce food packaging waste</span>
+            <a href="https://www.wikihow.com/Dispose-of-Food" target="_blank" style="text-decoration: none; color: blue;">How to reduce and dispose of food waste?</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <img src="assets/batteries.jpeg" alt="Batteries" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>Where to drop off used batteries</span>
+            <a href="https://www.wikihow.life/Recycle-Batteries" target="_blank" style="text-decoration: none; color: blue;">Guide on how to safely dispose of used batteries</a>
           </li>
           <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
             <img src="assets/biodegrable.png" alt="Biodegradable" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            <span>Guide to compostable vs biodegradable</span>
+            <a href="https://www.goodstartpackaging.com/biodegradable-vs-compostable-what-is-the-difference/?" target="_blank" style="text-decoration: none; color: blue;">Guide to compostable vs biodegradable</a>
           </li>
         </ul>        
         
@@ -123,5 +140,28 @@
     </div>
   </div>  
 </main>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.querySelector(".search-toggle");
+    const box = document.querySelector(".search-box");
+
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      box.classList.toggle("visible");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-container")) {
+        box.classList.remove("visible");
+      }
+    });
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    const cartCount = document.getElementById("cart-count");
+    if (cartCount) {
+      cartCount.textContent = localStorage.getItem("cartCount") || "0";
+    }
+  });
+</script>
 </body>
 </html>

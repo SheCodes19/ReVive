@@ -5,41 +5,109 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top-bar">
+  <header class="top-bar">
     <a href="dashboard.html">
-        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+      <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+    </a>
+    <nav class="nav-icons">
+      <div class="search-container">
+        <a href="#" class="search-toggle">
+          <img src="assets/search.svg" alt="Search" class="logo" />
+        </a>
+        <input type="text" placeholder="Search..." class="search-box" />
+      </div>         
+      <a href="articles.html">
+        <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
       </a>
-  <nav class="nav-icons">
-    <a href="recycle.html">♻️</a>
-    <a href="track.html">📊</a>
-    <a href="articles.html">🔍</a>
-    <a href="checkout.html" class="cart-icon">
-        🛒<span class="cart-badge">2</span>
-      </a>  
-    <a href="profile.html">👤</a>
-  </nav>
-</header>
+      <a href="track.html">
+        <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+      </a>
+      <a href="shop.html">
+        <img src="assets/store.svg" alt="store" class="logo" />
+      </a>
+      <a href="checkout.html" class="cart-icon">
+        <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+        <span class="cart-badge" id="cart-count">0</span>
+      </a>      
+      <a href="profile.html">
+        <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
+      </a>
+    </nav>
+  </header>
 
 <main class="content shop-page">
-  <div class="search-products">
-    <input type="text" placeholder="Search Products">
-  </div>
+  <div class= "product">
+    <h3>Shop our Eco-Friendly Products</h3>
+</div>
   <div class="product">
     <img src="assets/bottle.png">
     <div class="details">
       <h4>Reusable Water Bottle</h4>
       <p>$10 ⭐⭐⭐⭐☆ (700)</p>
-      <button class="btn">Add to cart</button>
-    </div>
+      <button class="btn add-to-cart">Add to cart</button>
+    </div>  
   </div>
   <div class="product">
     <img src="assets/bag.png">
     <div class="details">
       <h4>Reusable Bag</h4>
       <p>$20 ⭐⭐⭐⭐⭐ (300)</p>
-      <button class="btn">Add to cart</button>
+      <button class="btn add-to-cart">Add to cart</button>
     </div>
   </div>
+  <div class="product">
+    <img src="assets/toothbrush.png">
+    <div class="details">
+      <h4>Bamboo Toothbrush 2-pack</h4>
+      <p>$12 ⭐⭐⭐⭐⭐ (1.2k)</p>
+      <button class="btn add-to-cart">Add to cart</button>
+    </div>
+  </div>
+  <div class="checkout-button-wrapper">
+    <a href="checkout.html" class="btn checkout-btn">Go to Checkout</a>
+  </div>  
 </main>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.querySelector(".search-toggle");
+    const box = document.querySelector(".search-box");
+
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      box.classList.toggle("visible");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-container")) {
+        box.classList.remove("visible");
+      }
+    });
+  });
+</script>  
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cartCount = document.getElementById("cart-count");
+
+    // Display current cart count from localStorage
+    if (cartCount) {
+      cartCount.textContent = localStorage.getItem("cartCount") || "0";
+    }
+
+    // Handle Add to Cart clicks
+    const addButtons = document.querySelectorAll(".add-to-cart");
+    addButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        let count = parseInt(localStorage.getItem("cartCount") || "0", 10);
+        count++;
+        localStorage.setItem("cartCount", count);
+
+        if (cartCount) {
+          cartCount.textContent = count;
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>

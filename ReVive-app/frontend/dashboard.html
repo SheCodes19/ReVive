@@ -6,28 +6,73 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="dashboard-page">
+  </div>
   <header class="top-bar">
     <a href="dashboard.html">
       <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
     </a>
     <nav class="nav-icons">
-      <a href="recycle.html">♻️ Recycling</a>
-      <a href="track.html">📊 Track Progress</a>
-      <a href="articles.html">🔍 Articles</a>
-      <a href="shop.html">🛒 Shop</a>
-      <a href="profile.html">👤 Profile</a>
+      <div class="search-container">
+        <a href="#" class="search-toggle">
+          <img src="assets/search.svg" alt="Search" class="logo" />
+        </a>
+        <input type="text" placeholder="Search..." class="search-box" />
+      </div>         
+      <a href="articles.html">
+        <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
+      </a>
+      <a href="track.html">
+        <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+      </a>
+      <a href="shop.html">
+        <img src="assets/store.svg" alt="store" class="logo" />
+      </a>
+      <a href="checkout.html" class="cart-icon">
+        <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+        <span class="cart-badge" id="cart-count">0</span>
+      </a>      
+      <a href="profile.html">
+        <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
+      </a>
     </nav>
+  </header>
   </header>
 
   <main class="content home">
     <h2>Choose your action:</h2>
     <ul class="actions-list">
-      <li><a href="recycle.html">Find recycling information</a></li>
+      <li><a href="articles.html">Find recycling information</a></li>
       <li><a href="track.html">Track eco-friendly actions</a></li>
       <li><a href="articles.html">Explore informative articles</a></li>
       <li><a href="shop.html">Shop eco-friendly products</a></li>
       <li><a href="profile.html">Update your Profile</a></li>
     </ul>
   </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.querySelector(".search-toggle");
+      const box = document.querySelector(".search-box");
+  
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        box.classList.toggle("visible");
+      });
+  
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".search-container")) {
+          box.classList.remove("visible");
+        }
+      });
+    });
+  </script>  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const cartCount = document.getElementById("cart-count");
+    if (cartCount) {
+      cartCount.textContent = localStorage.getItem("cartCount") || "0";
+    }
+  });
+  </script>  
 </body>
 </html>

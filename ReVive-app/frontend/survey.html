@@ -7,13 +7,34 @@
 </head>
 <body>
   <div class="page">
-    <header class="header">
-        <a href="dashboard.html">
-            <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+    <header class="top-bar">
+      <a href="dashboard.html">
+        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
+      </a>
+      <nav class="nav-icons">
+        <div class="search-container">
+          <a href="#" class="search-toggle">
+            <img src="assets/search.svg" alt="Search" class="logo" />
           </a>
+          <input type="text" placeholder="Search..." class="search-box" />
+        </div>         
+        <a href="articles.html">
+          <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
+        </a>
+        <a href="track.html">
+          <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+        </a>
+        <a href="shop.html">
+          <img src="assets/store.svg" alt="store" class="logo" />
+        </a>
+        <a href="checkout.html">
+          <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+        </a>
         <a href="profile.html">
-            <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
-          </a>
+          <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
+        </a>
+      </nav>
+    </header>
       
     </header>
     <main class="survey">
@@ -29,5 +50,13 @@
       </form>
     </main>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const cartCount = document.getElementById("cart-count");
+    if (cartCount) {
+      cartCount.textContent = localStorage.getItem("cartCount") || "0";
+    }
+  });
+  </script>  
 </body>
 </html>
