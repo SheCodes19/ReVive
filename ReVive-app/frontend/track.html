@@ -43,7 +43,6 @@
       </nav>
     </header>
 
-    <!-- ✅ Toast message -->
     <div id="reset-toast" class="toast hidden">
       🌱 Chart reset for a new week!
     </div>
@@ -51,13 +50,47 @@
     <main class="track-content">
       <div class="actions-section">
         <h2>Log Daily Actions</h2>
-        <label><input type="checkbox" class="action" data-points="1"> Used a reusable bag</label>
-        <label><input type="checkbox" class="action" data-points="2"> Biked instead of drove</label>
-        <label><input type="checkbox" class="action" data-points="1"> Recycled an item</label>
-        <label><input type="checkbox" class="action" data-points="2"> Composted vegetable peels</label>
-        <label><input type="checkbox" class="action" data-points="1"> Other</label>
+        <div class="action-item">
+          Used a reusable bag
+          <div class="counter-controls">
+            <button type="button" class="decrease" data-index="0">−</button>
+            <input type="number" class="action-count" data-index="0" value="0" readonly>
+            <button type="button" class="increase" data-index="0">+</button>
+          </div>
+        </div>
+        <div class="action-item">
+          Biked instead of drove
+          <div class="counter-controls">
+            <button type="button" class="decrease" data-index="1">−</button>
+            <input type="number" class="action-count" data-index="1" value="0" readonly>
+            <button type="button" class="increase" data-index="1">+</button>
+          </div>
+        </div>
+        <div class="action-item">
+          Recycled an item
+          <div class="counter-controls">
+            <button type="button" class="decrease" data-index="2">−</button>
+            <input type="number" class="action-count" data-index="2" value="0" readonly>
+            <button type="button" class="increase" data-index="2">+</button>
+          </div>
+        </div>
+        <div class="action-item">
+          Composted vegetable peels
+          <div class="counter-controls">
+            <button type="button" class="decrease" data-index="3">−</button>
+            <input type="number" class="action-count" data-index="3" value="0" readonly>
+            <button type="button" class="increase" data-index="3">+</button>
+          </div>
+        </div>
+        <div class="action-item">
+          Other
+          <div class="counter-controls">
+            <button type="button" class="decrease" data-index="4">−</button>
+            <input type="number" class="action-count" data-index="4" value="0" readonly>
+            <button type="button" class="increase" data-index="4">+</button>
+          </div>
+        </div>
 
-        <!-- ✅ Reset Button -->
         <button class="btn secondary" id="reset-week-btn">🔁 Reset This Week</button>
       </div>
 
@@ -68,7 +101,6 @@
     </main>
   </div>
 
-  <!-- ✅ Script to control chart + reset -->
   <script>
     const today = new Date();
     const weekday = (today.getDay() + 6) % 7;
@@ -85,8 +117,7 @@
 
     localStorage.setItem("reviveLastSaveDate", today.toDateString());
 
-    const saved = localStorage.getItem("reviveChartData");
-    const progressData = saved ? JSON.parse(saved) : [0, 0, 0, 0, 0, 0, 0];
+    const progressData = JSON.parse(localStorage.getItem("reviveChartData") || "[0,0,0,0,0,0,0]");
 
     const ctx = document.getElementById('progressChart').getContext('2d');
     const chart = new Chart(ctx, {
@@ -106,50 +137,53 @@
        },
        scales: {
          x: {
-           ticks: {
-            color: '#222'        // ✅ dark x-axis numbers
-            },
-            grid: {
-              color: '#666'        // ✅ dark vertical grid lines
-            }
+           ticks: { color: '#222' },
+           grid: { color: '#666' }
          },
          y: {
            beginAtZero: true,
-           ticks: {
-             color: '#222'        // ✅ dark y-axis numbers
-           },
-           grid: {
-             color: '#666'        // ✅ dark horizontal grid lines
-           }
+           ticks: { color: '#222' },
+           grid: { color: '#666' }
          }
        },
        plugins: {
          legend: {
-           labels: {
-             color: '#222'        // ✅ dark legend text
-           }
+           labels: { color: '#222' }
          }
        }
      }
    });
 
-    const actions = document.querySelectorAll('.action');
-    actions.forEach(action => {
-      action.addEventListener('change', () => {
-        const index = weekday;
-        const points = parseInt(action.dataset.points);
-
-        if (action.checked) {
-          progressData[index] += points;
-        } else {
-          progressData[index] = Math.max(0, progressData[index] - points);
-        }
-
-        chart.update();
-        localStorage.setItem("reviveChartData", JSON.stringify(progressData));
-        localStorage.setItem("reviveLastSaveDate", today.toDateString());
-      });
+  document.querySelectorAll(".increase").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
+      const input = document.querySelector(`.action-count[data-index="${index}"]`);
+      let count = parseInt(input.value);
+      input.value = ++count;
+      updateProgress();
     });
+  });
+
+  document.querySelectorAll(".decrease").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
+      const input = document.querySelector(`.action-count[data-index="${index}"]`);
+      let count = parseInt(input.value);
+      if (count > 0) input.value = --count;
+      updateProgress();
+    });
+  });
+
+  function updateProgress() {
+    let sum = 0;
+    document.querySelectorAll(".action-count").forEach(input => {
+      sum += parseInt(input.value) || 0;
+    });
+    progressData[weekday] = sum;
+    chart.data.datasets[0].data = progressData;
+    chart.update();
+    localStorage.setItem("reviveChartData", JSON.stringify(progressData));
+  }
 
     if (isNewWeek) {
       const toast = document.getElementById("reset-toast");
@@ -183,26 +217,26 @@
     document.addEventListener("DOMContentLoaded", function () {
       const toggle = document.querySelector(".search-toggle");
       const box = document.querySelector(".search-box");
-  
+
       toggle.addEventListener("click", (e) => {
         e.preventDefault();
         box.classList.toggle("visible");
       });
-  
+
       document.addEventListener("click", (e) => {
         if (!e.target.closest(".search-container")) {
           box.classList.remove("visible");
         }
       });
     });
-  </script>  
+  </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const cartCount = document.getElementById("cart-count");
-    if (cartCount) {
-      cartCount.textContent = localStorage.getItem("cartCount") || "0";
-    }
-  });
-  </script>  
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) {
+        cartCount.textContent = localStorage.getItem("cartCount") || "0";
+      }
+    });
+  </script>
 </body>
 </html>
