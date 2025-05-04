@@ -13,12 +13,11 @@
         <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
       </a>
       <nav class="nav-icons">
-        <div class="search-container">
-          <a href="#" class="search-toggle">
-            <img src="assets/search.svg" alt="Search" class="logo" />
-          </a>
-          <input type="text" placeholder="Search..." class="search-box" />
-        </div>         
+        <input 
+        type="text" 
+        placeholder="Search..." 
+        style="margin-left: 200px; padding: 6px 12px; border: 2px solid #666; border-radius: 6px; font-size: 14px;"
+      >            
         <a href="articles.html">
           <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
         </a>
@@ -34,7 +33,7 @@
         </a>        
         <div class="profile-dropdown">
           <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
             <a href="profile.html">Profile</a>
             <a href="order.html">Order Summary</a>
             <a href="index.html" id="logout-btn">Logout</a>
@@ -212,23 +211,6 @@
         }, 3000);
       });
     }
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const toggle = document.querySelector(".search-toggle");
-      const box = document.querySelector(".search-box");
-
-      toggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        box.classList.toggle("visible");
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest(".search-container")) {
-          box.classList.remove("visible");
-        }
-      });
-    });
   </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
