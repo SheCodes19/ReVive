@@ -29,9 +29,14 @@
         <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
         <span class="cart-badge" id="cart-count">0</span>
       </a>      
-      <a href="profile.html">
-        <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
-      </a>
+      <div class="profile-dropdown">
+        <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
+        <div class="dropdown-menu">
+          <a href="profile.html">Profile</a>
+          <a href="checkout.html">Order Summary</a>
+          <a href="index.html" id="logout-btn">Logout</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -55,13 +60,16 @@
         Email
         <input type="email" placeholder="jane@test.com" id="Email"/>
         <input type="hidden" name="email" value="Emily.Watts@gmail.com" />
+        <span id="emailError" style="color: red; display: none; font-size: 0.9em;">Please enter a valid email address (e.g., name@example.com).</span>
+
       </label>
   
       <label>
         Phone Number
-        <input type="text" placeholder="(781) 123-4567" id="Phone"/>
+        <input type="text" placeholder="Enter 10-digit number" id="Phone" maxlength="10" inputmode="numeric" />
         <input type="hidden" name="phone" value="(254) 779-4128" />
-      </label>
+        <span id="phoneError" style="color: red; display: none; font-size: 0.9em;">Please enter a valid 10-digit phone number (numbers only).</span>
+      </label>            
   
       <label>
         Password
@@ -76,40 +84,72 @@
 
     <script>
       const formFields = ["Name", "Address", "Email", "Phone", "Password"];
-
-      // Fill fields from saved localStorage data (if it exists)
-      window.addEventListener("DOMContentLoaded", () => {
-        formFields.forEach(field => {
-          const updated = localStorage.getItem(field);
-          if (updated) {
-            document.getElementById(field).value = updated;
-          }
-        });
-      });
-
+    
       function fillAndConfirm() {
-        // Hardcoded values
-        const data = {
-          Name: "Emily Watts",
-          Address: "11th Street, Broadway",
-          Email: "Emily.Watts@revive.com",
-          Phone: "(254) 779-4128",
-          Password: "greenforest"
-        };
+        let isValid = true; 
     
-        // Fill form and save to localStorage
+        const phoneInput = document.getElementById("Phone");
+        const phoneError = document.getElementById("phoneError");
+        const phoneValue = phoneInput.value.trim();
+        const phonePattern = /^\d{10}$/;
+    
+        if (!phonePattern.test(phoneValue)) {
+          phoneError.style.display = "inline";
+          isValid = false;
+        } else {
+          phoneError.style.display = "none";
+        }
+  
+        const emailInput = document.getElementById("Email");
+        const emailError = document.getElementById("emailError");
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+        if (!emailPattern.test(emailValue)) {
+          emailError.style.display = "inline";
+          isValid = false;
+        } else {
+          emailError.style.display = "none";
+        }
+    
+        if (!isValid) {
+          const message = document.getElementById("confirmationMessage");
+          message.style.display = "none";
+          return;
+        }
+    
         formFields.forEach(field => {
-          document.getElementById(field).value = data[field];
-          localStorage.setItem(field, data[field]);
+          const input = document.getElementById(field);
+          const hidden = input.nextElementSibling;
+          const typedValue = input.value.trim();
+          const finalValue = typedValue || hidden.value;
+          input.value = finalValue;
+          localStorage.setItem(field, finalValue);
         });
     
-        // Show confirmation message
         const message = document.getElementById("confirmationMessage");
-        message.textContent = "Your information is updated.";
+        message.textContent = "✅ Your information is updated.";
+        message.style.color = "green";
         message.style.display = "block";
       }
     </script>
-  </div> 
+    
+    
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const formFields = ["Name", "Address", "Email", "Phone", "Password"];
+
+        formFields.forEach(field => {
+          const saved = localStorage.getItem(field);
+          if (saved) {
+            document.getElementById(field).value = saved;
+          }
+        });
+      });
+    </script>
+  </div>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const toggle = document.querySelector(".search-toggle");
