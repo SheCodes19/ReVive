@@ -41,6 +41,7 @@ html, body {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
+
 .profile-dropdown {
   position: relative;
   display: inline-block;
@@ -378,11 +379,58 @@ main, .login-container, .content {
 }
 
 .product {
-  background:rgba(228, 245, 224,0.4);
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  background: rgba(228, 245, 224, 0.4);
+  padding: 20px;
   border-radius: 8px;
   position: relative;
-  z-index: 1; /* Ensures it's above the background ::before */
+  z-index: 1;
+  border-radius: 8px;
+  margin: 15px auto;
+  max-width: 1000px;
+}
+
+/* Fix image size and spacing */
+.product img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+}
+
+.details-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.details-left h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.details-left p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.btn.add-to-cart {
+  padding: 8px 16px;
+  font-size: 14px;
 }
 
 .product h4,
