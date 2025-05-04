@@ -378,12 +378,59 @@ main, .login-container, .content {
 }
 
 .product {
-  background:rgba(228, 245, 224,0.4);
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  background: rgba(228, 245, 224, 0.4);
+  padding: 20px;
   border-radius: 8px;
   position: relative;
   z-index: 1; /* Ensures it's above the background ::before */
-}
+  border-radius: 8px;
+   margin: 15px auto;
+   max-width: 1000px;
+ }
+ 
+ /* Fix image size and spacing */
+ .product img {
+   width: 150px;
+   height: 150px;
+   object-fit: cover;
+   border-radius: 8px;
+   background-color: white;
+ }
+ 
+ .details {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex: 1;
+   gap: 10px;
+ }
+ 
+ .details-left {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+ }
+ 
+ .details-left h4 {
+   margin: 0;
+   font-size: 18px;
+   font-weight: bold;
+ }
+ 
+ .details-left p {
+   margin: 0;
+   font-size: 15px;
+   font-weight: normal;
+ }
+ 
+ .btn.add-to-cart {
+   padding: 8px 16px;
+   font-size: 14px;
+ }
 
 .product h4,
 .product p {
@@ -510,11 +557,11 @@ main, .login-container, .content {
 
 .actions-list a {
   text-decoration: none;
-  background: #e4f5e0;
+  background:rgb(154, 227, 136);
   padding: 10px 15px;
   border-radius: 6px;
   display: inline-block;
-  color: #333;
+  color: #000;
 }
 
 .actions-list a:hover {
@@ -759,28 +806,90 @@ input:focus {
   transform: scaleY(1);
   pointer-events: auto;
 }
-
-.dashboard-content {
-  position: relative;
-  z-index: 2;
-  padding: 40px;
-  background-color: rgba(255, 255, 255, 0.95); /* optional white panel */
-  border-radius: 12px;
-  max-width: 1000px;
-  margin: 40px auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.dashboard-page,
+.dashboard-page * {
+  color: black !important;         /* Force dark text */
+  opacity: 1 !important;          /* Remove transparency */
+  font-weight: 600;               /* Bold */
 }
+
+
+/* If you're using headings and paragraphs inside dashboard */
+.dashboard-page h1,
+.dashboard-page h2,
+.dashboard-page h3,
+.dashboard-page p,
+.dashboard-page span,
+.dashboard-page li {
+  color: black !important;
+  opacity: 1 !important;          /* Force full opacity */
+}
+
 
 .dashboard-page::before {
   content: "";
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url("assets/dashboard.png");
+  background-image: url("assets/dashboard.png"); /* or any image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  filter: blur(2px) brightness(1.2);
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.order-page::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("assets/order.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
   opacity: 0.4;
-  filter: blur(0px) brightness(1);
+  filter: blur(1px) brightness(1.1);
   pointer-events: none;
+}
+
+.order-content {
+  position: relative;
+  z-index: 2;
+  padding: 60px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #222;
+  font-size: 1.1rem;
+}
+
+.order-summary {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #2c6b2f;
+}
+
+.order-summary ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.order-summary li {
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+.order-summary .total {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
