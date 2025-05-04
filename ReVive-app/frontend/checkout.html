@@ -31,21 +31,25 @@
           <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
           <span class="cart-badge" id="cart-count">0</span>
         </a>        
-        <a href="profile.html">
-          <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
-        </a>
+        <div class="profile-dropdown">
+          <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
+          <div class="dropdown-menu">
+            <a href="profile.html">Profile</a>
+            <a href="checkout.html">Order Summary</a>
+            <a href="index.html" id="logout-btn">Logout</a>
+          </div>
+        </div>
       </nav>
     </header>
 
     <main class="checkout-content">
-      <section class="checkout-summary">
+      <section class="checkout-summary" style="flex: 1;">
         <h2>Order Summary</h2>
         <ul>
-          <li>Reusable Water Bottle - $10.00</li>
-          <li>Compost Bin - $18.00</li>
-          <li>Bamboo Toothbrush (Pack) - $12.00</li>
-        </ul>
-        <p class="total">Total: <strong>$40.00</strong></p>
+          <ul id="order-list"></ul>
+          <p class="total" style="margin-top: 20px; text-align: right;">
+            <strong>Total: <span id="order-total">$0.00</span></strong>
+          </p>          
       </section>
 
       <section class="checkout-details">
@@ -92,6 +96,92 @@
         cartCount.textContent = localStorage.getItem("cartCount") || "0";
       }
 
+      // ✅ Render dynamic order summary
+      const orderList = document.getElementById("order-list");
+      const orderTotal = document.getElementById("order-total");
+
+      let cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+      let total = 0;
+
+      orderList.innerHTML = "";
+
+      if (cartItems.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "Your cart is empty.";
+        orderList.appendChild(li);
+      } else {
+        let groupedItems = {};
+        cartItems.forEach(item => {
+          if (groupedItems[item.name]) {
+            groupedItems[item.name].quantity += 1;
+            groupedItems[item.name].totalPrice += item.price;
+          } else {
+            groupedItems[item.name] = {
+              quantity: 1,
+              totalPrice: item.price,
+              pricePerItem: item.price
+            };
+          }
+        });
+
+        for (let name in groupedItems) {
+          const { quantity, totalPrice, pricePerItem } = groupedItems[name];
+
+          const li = document.createElement("li");
+          li.textContent = `${name} (x${quantity}) - $${totalPrice.toFixed(2)} `;
+
+          // ➖ Reduce button
+          const reduceBtn = document.createElement("button");
+          reduceBtn.textContent = "➖";
+          reduceBtn.style.marginLeft = "10px";
+          reduceBtn.style.cursor = "pointer";
+
+          reduceBtn.onclick = function () {
+            // Remove one instance of this item
+            const indexToRemove = cartItems.findIndex(item => item.name === name);
+            if (indexToRemove !== -1) {
+              cartItems.splice(indexToRemove, 1);
+              localStorage.setItem("cartItems", JSON.stringify(cartItems));
+              localStorage.setItem("cartCount", cartItems.length);
+              location.reload();
+            }
+          };
+
+          // ➕ Add button
+          const addBtn = document.createElement("button");
+          addBtn.textContent = "➕";
+          addBtn.style.marginLeft = "5px";
+          addBtn.style.cursor = "pointer";
+          addBtn.onclick = function () {
+            cartItems.push({ name: name, price: pricePerItem });
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            localStorage.setItem("cartCount", cartItems.length);
+            location.reload();
+          };
+          li.appendChild(addBtn);
+
+          // 🗑️ Remove all button
+          const removeBtn = document.createElement("button");
+          removeBtn.textContent = "🗑️";
+          removeBtn.style.marginLeft = "5px";
+          removeBtn.style.cursor = "pointer";
+
+          removeBtn.onclick = function () {
+            const updatedCart = cartItems.filter(item => item.name !== name);
+            localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+            localStorage.setItem("cartCount", updatedCart.length);
+            location.reload();
+          };
+
+          li.appendChild(reduceBtn);
+          li.appendChild(removeBtn);
+          orderList.appendChild(li);
+          total += totalPrice;
+        }
+      }
+
+      orderTotal.textContent = `$${total.toFixed(2)}`;
+
       // Handle Place Order button
       const placeBtn = document.getElementById("place-order-btn");
       if (placeBtn) {
@@ -100,6 +190,7 @@
 
           // Reset cart count
           localStorage.setItem("cartCount", "0");
+          localStorage.setItem("cartItems", JSON.stringify([]));
 
           // Update cart badge visually
           if (cartCount) cartCount.textContent = "0";

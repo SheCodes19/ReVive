@@ -29,9 +29,14 @@
         <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
         <span class="cart-badge" id="cart-count">0</span>
       </a>      
-      <a href="profile.html">
-        <img src="assets/profileicon.svg" alt="profileicon" class="logo" />
-      </a>
+      <div class="profile-dropdown">
+        <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
+        <div class="dropdown-menu">
+          <a href="profile.html">Profile</a>
+          <a href="checkout.html">Order Summary</a>
+          <a href="index.html" id="logout-btn">Logout</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -44,7 +49,7 @@
     <div class="details">
       <h4>Reusable Water Bottle</h4>
       <p>$10 ⭐⭐⭐⭐☆ (700)</p>
-      <button class="btn add-to-cart">Add to cart</button>
+      <button class="btn add-to-cart" data-name="Reusable Water Bottle" data-price="10">Add to cart</button>
     </div>  
   </div>
   <div class="product">
@@ -52,7 +57,7 @@
     <div class="details">
       <h4>Reusable Bag</h4>
       <p>$20 ⭐⭐⭐⭐⭐ (300)</p>
-      <button class="btn add-to-cart">Add to cart</button>
+      <button class="btn add-to-cart" data-name="Reusable Bag" data-price="20">Add to cart</button>
     </div>
   </div>
   <div class="product">
@@ -60,13 +65,14 @@
     <div class="details">
       <h4>Bamboo Toothbrush 2-pack</h4>
       <p>$12 ⭐⭐⭐⭐⭐ (1.2k)</p>
-      <button class="btn add-to-cart">Add to cart</button>
+      <button class="btn add-to-cart" data-name="Bamboo Toothbrush 2-pack" data-price="12">Add to cart</button>
     </div>
   </div>
   <div class="checkout-button-wrapper">
     <a href="checkout.html" class="btn checkout-btn">Go to Checkout</a>
   </div>  
 </main>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.querySelector(".search-toggle");
@@ -84,6 +90,7 @@
     });
   });
 </script>  
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const cartCount = document.getElementById("cart-count");
@@ -95,18 +102,25 @@
 
     // Handle Add to Cart clicks
     const addButtons = document.querySelectorAll(".add-to-cart");
-    addButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        let count = parseInt(localStorage.getItem("cartCount") || "0", 10);
-        count++;
-        localStorage.setItem("cartCount", count);
-
-        if (cartCount) {
+      addButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          // 1. Update cart count
+          let count = parseInt(localStorage.getItem("cartCount") || "0", 10);
+          count++;
+          localStorage.setItem("cartCount", count);
           cartCount.textContent = count;
-        }
+
+          // 2. Update cart items array
+          const name = button.getAttribute("data-name");
+          const price = parseFloat(button.getAttribute("data-price"));
+
+          let cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+          cartItems.push({ name, price });
+          localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        });
       });
     });
-  });
 </script>
 
 </body>
