@@ -18,7 +18,7 @@
         <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
         <button class="btn">Login</button>
-        <a href="profile.html" class="btn" style="display: block; width: 100%; max-width: 220px; text-align: center; margin: 10px auto; box-sizing: border-box;">Sign up</a>
+        <button id="signup" class="btn" style="display: block; width: 100%; max-width: 220px; text-align: center; margin: 10px auto; box-sizing: border-box;">Sign Up</button>
         <button id="forgot-password" style="background: none; border: none; color: black; text-decoration: underline; margin-top: -12px; font-weight: bold; cursor: pointer;">
           Forgot Password?
         </button>        
@@ -31,19 +31,22 @@
     </main>
   </div>
   <script>
+    // Login
     document.querySelector(".btn").addEventListener("click", function () {
       const username = document.querySelector('input[type="text"]').value;
       const password = document.querySelector('input[type="password"]').value;
   
+      const savedUsername = localStorage.getItem("username") || "Belle25";
       const savedPassword = localStorage.getItem("passwordForBelle") || "greenforest";
   
-      if (username === "Belle25" && password === savedPassword) {
-        window.location.href = "dashboard.html"; 
+      if (username === savedUsername && password === savedPassword) {
+        window.location.href = "dashboard.html";
       } else {
         alert("Invalid username or password.");
       }
     });
   
+    // Forgot Password
     document.getElementById("forgot-password").addEventListener("click", function () {
       const username = prompt("Enter your username:");
       if (!username) return;
@@ -51,13 +54,32 @@
       const newPassword = prompt("Enter your new password:");
       if (!newPassword) return;
   
-      if (username === "Belle25") {
+      if (username === localStorage.getItem("username") || username === "Belle25") {
         localStorage.setItem("passwordForBelle", newPassword);
         alert("Password updated! Try logging in with your new password.");
       } else {
         alert("Username not found.");
       }
     });
-  </script>      
+  
+    // Sign Up
+    document.getElementById("signup").addEventListener("click", function () {
+      const username = prompt("Choose a username:");
+      if (!username) return;
+  
+      const password = prompt("Choose a password:");
+      if (!password) return;
+
+      const name = prompt("Enter your full name:");
+      if (!name) return;
+  
+      localStorage.setItem("username", username);
+      localStorage.setItem("passwordForBelle", password);
+      localStorage.setItem("loggedInUser", username);
+      localStorage.setItem("Name", name);
+      alert("Account created! You can now log in.");
+    });
+  </script>
+  
 </body>
 </html>
