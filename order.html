@@ -12,12 +12,11 @@
         <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
       </a>
       <nav class="nav-icons">
-        <div class="search-container">
-          <a href="#" class="search-toggle">
-            <img src="assets/search.svg" alt="Search" class="logo" />
-          </a>
-          <input type="text" placeholder="Search..." class="search-box" />
-        </div>         
+        <input 
+        type="text" 
+        placeholder="Search..." 
+        style="margin-left: 200px; padding: 6px 12px; border: 2px solid #666; border-radius: 6px; font-size: 14px;"
+      >            
         <a href="articles.html">
           <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
         </a>
@@ -33,7 +32,7 @@
         </a>        
         <div class="profile-dropdown">
             <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-            <div class="dropdown-menu">
+            <div class="dropdown-menu"style="background-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
               <a href="profile.html">Profile</a>
               <a href="order.html">Order Summary</a>
               <a href="index.html" id="logout-btn">Logout</a>
@@ -54,27 +53,44 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Update cart count badge
+      // Update cart badge
       const badge = document.getElementById("cart-count");
       badge.textContent = localStorage.getItem("cartCount") || "0";
-
-      // Render order items
+  
       const list = document.getElementById("order-items-list");
       const totalDisplay = document.getElementById("order-total");
+  
+      // Check if an order was placed
+      const orderPlaced = localStorage.getItem("orderPlaced");
+  
+      if (!orderPlaced) {
+        list.innerHTML = "<li>No recent orders found.</li>";
+        totalDisplay.innerHTML = `Total: <strong>$0.00</strong>`;
+        return;
+      }
+      
+      const shippingInfo = JSON.parse(localStorage.getItem("lastShippingInfo"));
+      if (shippingInfo) {
+        const shippingSummary = document.createElement("p");
+        shippingSummary.innerHTML = `<strong>Shipping To:</strong> ${shippingInfo.name}, ${shippingInfo.address}`;
+        list.insertAdjacentElement("beforebegin", shippingSummary);
+      }
 
-      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      // If order was placed, display summary
+      const cartItems = JSON.parse(localStorage.getItem("lastPlacedItems")) || [];
       let total = 0;
-
+  
       cartItems.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} - ${item.price}`;
+        li.textContent = `${item.name} - $${item.price}`;
         list.appendChild(li);
-
-        total += parseFloat(item.price.replace("$", ""));
+        total += item.price;
       });
-
+  
       totalDisplay.innerHTML = `Total: <strong>$${total.toFixed(2)}</strong>`;
+  
     });
   </script>
+  
 </body>
 </html>
