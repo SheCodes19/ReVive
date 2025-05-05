@@ -35,9 +35,9 @@
       const username = document.querySelector('input[type="text"]').value;
       const password = document.querySelector('input[type="password"]').value;
   
-      const savedPassword = localStorage.getItem("passwordForEmily") || "greenforest";
+      const savedPassword = localStorage.getItem("passwordForBelle") || "greenforest";
   
-      if (username === "Emily" && password === savedPassword) {
+      if (username === "Belle25" && password === savedPassword) {
         window.location.href = "dashboard.html"; 
       } else {
         alert("Invalid username or password.");
@@ -51,8 +51,8 @@
       const newPassword = prompt("Enter your new password:");
       if (!newPassword) return;
   
-      if (username === "Emily") {
-        localStorage.setItem("passwordForEmily", newPassword);
+      if (username === "Belle25") {
+        localStorage.setItem("passwordForBelle", newPassword);
         alert("Password updated! Try logging in with your new password.");
       } else {
         alert("Username not found.");

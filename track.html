@@ -13,11 +13,10 @@
         <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
       </a>
       <nav class="nav-icons">
-        <input 
-        type="text" 
-        placeholder="Search..." 
-        style="margin-left: 200px; padding: 6px 12px; border: 2px solid #666; border-radius: 6px; font-size: 14px;"
-      >            
+        <div class="smart-search-container">
+          <input type="text" id="site-search" placeholder="Search..." autocomplete="off" />
+          <div id="search-suggestions" class="suggestions-box"></div>
+        </div>          
         <a href="articles.html">
           <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
         </a>
@@ -220,5 +219,164 @@
       }
     });
   </script>
+  <script>
+    const searchInput = document.getElementById("site-search");
+    const suggestionsBox = document.getElementById("search-suggestions");
+  
+    const suggestions = [
+      // Shop
+      "Reusable Water Bottle",
+      "Reusable Bag",
+      "Bamboo Toothbrush 2-pack",
+      "Kitchen Compost Bin",
+      "Reusable Straws (4-pack)",
+      "Compostable Trash Bags",
+      "Bamboo Cutlery Set with Case",
+      // Articles
+      "How to dispose of a diaper?",
+      "What to do with old electronics?",
+      "Recycle glass bottles",
+      "How to reduce e-waste?",
+      "What can and can't you recycle?",
+      "Reduce and dispose of food waste",
+      "Recycle batteries",
+      "Biodegradable vs compostable",
+      "Compost food scraps",
+      "Sustainable living tips",
+      "Reduce home energy use",
+      "Eco-friendly bathroom swaps",
+      "Water conservation",
+      "Reduce plastics",
+      "Go green guide",
+      "Recycle clothing",
+      "Eco labels",
+      "Local vs imported goods",
+      "Reusable grocery bags",
+      "Are bamboo products sustainable?",
+      "Ethical brands",
+      // Track
+      "Used a reusable bag",
+      "Biked instead of drove",
+      "Recycled an item",
+      "Composted vegetable peels",
+      "Other"
+    ];
+  
+    const suggestionMap = {
+      "Reusable Water Bottle": "shop.html",
+      "Reusable Bag": "shop.html",
+      "Bamboo Toothbrush 2-pack": "shop.html",
+      "Kitchen Compost Bin": "shop.html",
+      "Reusable Straws (4-pack)": "shop.html",
+      "Compostable Trash Bags": "shop.html",
+      "Bamboo Cutlery Set with Case": "shop.html",
+  
+      "How to dispose of a diaper?": "articles.html",
+      "What to do with old electronics?": "articles.html",
+      "Recycle glass bottles": "articles.html",
+      "How to reduce e-waste?": "articles.html",
+      "What can and can't you recycle?": "articles.html",
+      "Reduce and dispose of food waste": "articles.html",
+      "Recycle batteries": "articles.html",
+      "Biodegradable vs compostable": "articles.html",
+      "Compost food scraps": "articles.html",
+      "Sustainable living tips": "articles.html",
+      "Reduce home energy use": "articles.html",
+      "Eco-friendly bathroom swaps": "articles.html",
+      "Water conservation": "articles.html",
+      "Reduce plastics": "articles.html",
+      "Go green guide": "articles.html",
+      "Recycle clothing": "articles.html",
+      "Eco labels": "articles.html",
+      "Local vs imported goods": "articles.html",
+      "Reusable grocery bags": "articles.html",
+      "Are bamboo products sustainable?": "articles.html",
+      "Ethical brands": "articles.html",
+  
+      "Used a reusable bag": "track.html",
+      "Biked instead of drove": "track.html",
+      "Recycled an item": "track.html",
+      "Composted vegetable peels": "track.html",
+      "Other": "track.html"
+    };
+  
+    let currentFocus = -1;
+  
+    searchInput.addEventListener("input", function () {
+      const inputVal = this.value.toLowerCase();
+      suggestionsBox.innerHTML = "";
+      currentFocus = -1;
+  
+      if (inputVal.trim() === "") {
+        suggestionsBox.style.display = "none";
+        return;
+      }
+  
+      const filtered = suggestions.filter(item =>
+        item.toLowerCase().includes(inputVal)
+      );
+  
+      if (filtered.length === 0) {
+        suggestionsBox.style.display = "none";
+        return;
+      }
+  
+      filtered.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = item;
+        div.classList.add("suggestion-item");
+        div.addEventListener("click", () => {
+          searchInput.value = item;
+          suggestionsBox.style.display = "none";
+          const targetPage = suggestionMap[item];
+          if (targetPage) {
+            window.location.href = targetPage;
+          }
+        });
+        suggestionsBox.appendChild(div);
+      });
+  
+      suggestionsBox.style.display = "block";
+    });
+  
+    searchInput.addEventListener("keydown", function (e) {
+      const items = suggestionsBox.getElementsByClassName("suggestion-item");
+      if (!items.length) return;
+  
+      if (e.key === "ArrowDown") {
+        currentFocus = (currentFocus + 1) % items.length;
+        addActive(items);
+        e.preventDefault();
+      } else if (e.key === "ArrowUp") {
+        currentFocus = (currentFocus - 1 + items.length) % items.length;
+        addActive(items);
+        e.preventDefault();
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          items[currentFocus].click();
+        }
+      }
+    });
+  
+    function addActive(items) {
+      removeActive(items);
+      if (currentFocus >= 0 && currentFocus < items.length) {
+        items[currentFocus].classList.add("active");
+      }
+    }
+  
+    function removeActive(items) {
+      for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove("active");
+      }
+    }
+  
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".smart-search-container")) {
+        suggestionsBox.style.display = "none";
+      }
+    });
+  </script>  
 </body>
 </html>
