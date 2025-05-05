@@ -30,7 +30,7 @@
       </a>      
       <div class="profile-dropdown">
         <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-        <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
+        <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
           <a href="profile.html">Profile</a>
           <a href="order.html">Order Summary</a>
           <a href="index.html" id="logout-btn">Logout</a>
@@ -59,15 +59,14 @@
         Email
         <input type="email" placeholder="jane@test.com" id="Email"/>
         <input type="hidden" name="email" value="Emily.Watts@gmail.com" />
-        <span id="emailError" style="color: red; display: none; font-size: 0.9em;">Please enter a valid email address (e.g., name@example.com).</span>
-
+        <span id="emailError" class="error-message">Please enter a valid email address (e.g., name@example.com).</span>
       </label>
   
       <label>
         Phone Number
         <input type="text" placeholder="Enter 10-digit number" id="Phone" maxlength="10" inputmode="numeric" />
         <input type="hidden" name="phone" value="(254) 779-4128" />
-        <span id="phoneError" style="color: red; display: none; font-size: 0.9em;">Please enter a valid 10-digit phone number (numbers only).</span>
+        <span id="phoneError" class="error-message">Please enter a valid 10-digit phone number (numbers only).</span>
       </label>            
   
       <label>
@@ -132,9 +131,6 @@
         message.style.display = "block";
       }
     </script>
-    
-    
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const formFields = ["Name", "Address", "Email", "Phone", "Password"];

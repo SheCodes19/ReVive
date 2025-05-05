@@ -30,7 +30,7 @@
       </a>      
       <div class="profile-dropdown">
         <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-        <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
+        <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
           <a href="profile.html">Profile</a>
           <a href="order.html">Order Summary</a>
           <a href="index.html" id="logout-btn">Logout</a>
@@ -84,7 +84,7 @@
     </div>    
   </div>
   <div class="product">
-    <img src="assets/straws.jpg">
+    <img src="assets/straws.png">
     <div class="details">
       <div class="details-left">
         <h4>Reusable Straws (4-pack)</h4>
@@ -104,7 +104,7 @@
     </div>
   </div>
   <div class="product">
-    <img src="assets/cutlery.jpeg" alt="Bamboo Cutlery Set">
+    <img src="assets/cutlery.png" alt="Bamboo Cutlery Set">
     <div class="details">
       <div class="details-left">
         <h4>Bamboo Cutlery Set with Case</h4>
@@ -131,13 +131,12 @@
     const addButtons = document.querySelectorAll(".add-to-cart");
       addButtons.forEach(button => {
         button.addEventListener("click", () => {
-          // 1. Update cart count
+
           let count = parseInt(localStorage.getItem("cartCount") || "0", 10);
           count++;
           localStorage.setItem("cartCount", count);
           cartCount.textContent = count;
 
-          // 2. Update cart items array
           const name = button.getAttribute("data-name");
           const price = parseFloat(button.getAttribute("data-price"));
 
