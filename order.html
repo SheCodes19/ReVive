@@ -53,27 +53,44 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Update cart count badge
+      // Update cart badge
       const badge = document.getElementById("cart-count");
       badge.textContent = localStorage.getItem("cartCount") || "0";
-
-      // Render order items
+  
       const list = document.getElementById("order-items-list");
       const totalDisplay = document.getElementById("order-total");
+  
+      // Check if an order was placed
+      const orderPlaced = localStorage.getItem("orderPlaced");
+  
+      if (!orderPlaced) {
+        list.innerHTML = "<li>No recent orders found.</li>";
+        totalDisplay.innerHTML = `Total: <strong>$0.00</strong>`;
+        return;
+      }
+      
+      const shippingInfo = JSON.parse(localStorage.getItem("lastShippingInfo"));
+      if (shippingInfo) {
+        const shippingSummary = document.createElement("p");
+        shippingSummary.innerHTML = `<strong>Shipping To:</strong> ${shippingInfo.name}, ${shippingInfo.address}`;
+        list.insertAdjacentElement("beforebegin", shippingSummary);
+      }
 
-      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      // If order was placed, display summary
+      const cartItems = JSON.parse(localStorage.getItem("lastPlacedItems")) || [];
       let total = 0;
-
+  
       cartItems.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} - ${item.price}`;
+        li.textContent = `${item.name} - $${item.price}`;
         list.appendChild(li);
-
-        total += parseFloat(item.price.replace("$", ""));
+        total += item.price;
       });
-
+  
       totalDisplay.innerHTML = `Total: <strong>$${total.toFixed(2)}</strong>`;
+  
     });
   </script>
+  
 </body>
 </html>
