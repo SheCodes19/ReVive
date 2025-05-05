@@ -153,7 +153,12 @@ h1 {
 }
 
 #reset-week-btn {
-  margin-top: 20px;
+  padding: 8px 28px;
+  font-size: 15px;
+  margin: 20px auto 0;
+  display: block;
+  width: max-content;
+  border-radius: 8px;
 }
 
 .top-bar {
@@ -903,25 +908,57 @@ input:focus {
   font-size: 1.2rem;
 }
 
+.counter-controls button:hover {
+  background-color: #a5d6a7;
+}
+
 .counter-controls {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100px;   
+  height: 30px;     
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-left: 12px;
 }
 
 .counter-controls button {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 4px;
+  flex: 1;
+  height: 100%;
+  background-color: #c8e6c9;
   border: none;
-  background-color:rgb(194, 253, 186);
-  color: #000;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .counter-controls input {
-  width: 40px;
+  width: 30px;   
   text-align: center;
-  font-weight: bold;
-  font-size: 16px;
+  border: none;
+  font-size: 14px; 
+  background-color: transparent;
 }
+
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.action-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  font-weight: normal;
+  display: none;
+  margin-top: 2px;
+}
+

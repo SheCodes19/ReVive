@@ -32,7 +32,7 @@
         </a>        
         <div class="profile-dropdown">
           <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-          <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
+          <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
             <a href="profile.html">Profile</a>
             <a href="order.html">Order Summary</a>
             <a href="index.html" id="logout-btn">Logout</a>
@@ -55,17 +55,39 @@
         <h2>Shipping Information</h2>
         <form id="checkout-form">
           <h3>Shipping Information</h3>
-          <input type="text" placeholder="Full Name" required pattern="[A-Za-z\s]{2,}" title="Enter a valid name (letters only)">
-          <input type="text" placeholder="Address" required minlength="5">
-          <input type="text" placeholder="City" required pattern="[A-Za-z\s]{2,}" title="Enter a valid city (letters only)">
-          <input type="text" placeholder="Postal Code" required pattern="\d{5}" title="Enter a 5-digit ZIP code">
-          <input type="text" placeholder="Country" required pattern="[A-Za-z\s]{2,}" title="Enter a valid country name">
+          <label>
+            <input type="text" id="fullName" placeholder="Full Name">
+          </label>
+          <label>
+          <input type="text" id="address" placeholder="Address">
+          </label>
+          <label>
+          <input type="text" id="city" placeholder="City">
+          </label>
+          <label>
+            <span id="postalError" class="error-message">Enter a valid 5-digit ZIP code.</span>
+            <input type="text" id="postal" placeholder="Postal-code"/>
+          </label>
+          <label>
+          <input type="text" id="country" placeholder="Country">
+          </label>
 
           <h3>Payment Information</h3>
-          <input type="text" placeholder="Cardholder Name" required pattern="[A-Za-z\s]{2,}" title="Enter a valid name (letters only)">
-          <input type="text" placeholder="Card Number" required pattern="\d{16}" title="Enter a 16-digit card number">
-          <input type="text" placeholder="Expiration (MM/YY)" required pattern="(0[1-9]|1[0-2])\/\d{2}" title="Format: MM/YY">
-          <input type="text" placeholder="CVV" required pattern="\d{3}" title="Enter a 3-digit CVV">
+          <label>
+          <input type="text" id="cardholder"placeholder="Cardholder Name">
+          </label>
+          <label>
+            <span id="cardnumberError" class="error-message">Enter a 16-digit card number.</span>
+            <input type="text" id="cardnumber" placeholder="Cardnumber"/>
+          </label>
+          <label>
+            <span id="expiryError" class="error-message">Use format MM/YY (e.g., 08/26).</span>
+            <input type="text" id="expiry" placeholder="Expiry Date"/>
+          </label>
+          <label>
+            <span id="cvvError" class="error-message">Enter a 3-digit CVV.</span>
+            <input type="text" id="cvv" placeholder="CVV"/>
+          </label>
 
           <button id="place-order-btn" class="btn">Place Order</button>
         </form>          
@@ -74,13 +96,11 @@
   </div>
 
   <script>
-      // Update cart badge from localStorage
       const cartCount = document.getElementById("cart-count");
       if (cartCount) {
         cartCount.textContent = localStorage.getItem("cartCount") || "0";
       }
 
-      // ✅ Render dynamic order summary
       const orderList = document.getElementById("order-list");
       const orderTotal = document.getElementById("order-total");
 
@@ -123,7 +143,7 @@
           controls.style.gap = "8px";
           controls.style.margin = "5px 0 15px 0";
 
-          // ➖ Reduce button
+          // Reduce button
           const reduceBtn = document.createElement("button");
           reduceBtn.textContent = "➖";
           reduceBtn.onclick = function () {
@@ -136,7 +156,7 @@
             }
           };
 
-          // ➕ Add button
+          // Add button
           const addBtn = document.createElement("button");
           addBtn.textContent = "➕";
           addBtn.onclick = function () {
@@ -146,7 +166,7 @@
             location.reload();
           };
 
-          // 🗑️ Remove all button
+          // Remove all button
           const removeBtn = document.createElement("button");
           removeBtn.textContent = "🗑️";
           removeBtn.onclick = function () {
@@ -168,31 +188,53 @@
 
       orderTotal.textContent = `$${total.toFixed(2)}`;
 
-      // Handle Place Order button
+      // Place Order button
       const placeBtn = document.getElementById("place-order-btn");
       if (placeBtn) {
         placeBtn.addEventListener("click", function (e) {
-          e.preventDefault(); // Prevent form submission
+          e.preventDefault();
 
           const form = document.getElementById("checkout-form");
 
-          // ✅ Check validity
-          if (!form.checkValidity()) {
-            form.reportValidity(); // This highlights the invalid fields
-            return; // STOP if form is invalid
+          let isValid = true;
+
+          document.querySelectorAll(".error-message").forEach(span => span.style.display = "none");
+
+          const postal = document.getElementById("postal");
+          if (!/^\d{5}$/.test(postal.value.trim())) {
+            document.getElementById("postalError").style.display = "inline";
+            isValid = false;
           }
 
-          // If valid, continue placing order
+          const cardnumber = document.getElementById("cardnumber");
+          if (!/^\d{16}$/.test(cardnumber.value.trim())) {
+            document.getElementById("cardnumberError").style.display = "inline";
+            isValid = false;
+          }
+
+          const expiry = document.getElementById("expiry");
+          if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry.value.trim())) {
+            document.getElementById("expiryError").style.display = "inline";
+            isValid = false;
+          }
+
+          const cvv = document.getElementById("cvv");
+          if (!/^\d{3}$/.test(cvv.value.trim())) {
+            document.getElementById("cvvError").style.display = "inline";
+            isValid = false;
+          }
+
+          if (!isValid) return;
+
           localStorage.setItem("lastPlacedItems", JSON.stringify(cartItems)); 
           localStorage.setItem("orderPlaced", "true"); 
-          
-          // ✅ Save shipping info
+
           const shippingInputs = form.querySelectorAll('input');
           const shippingData = {
             name: shippingInputs[0].value,
             address: shippingInputs[1].value
           };
-          localStorage.setItem("lastShippingInfo", JSON.stringify(shippingData));
+          
           localStorage.setItem("cartCount", "0");
           localStorage.setItem("cartItems", JSON.stringify([]));
 
