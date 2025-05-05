@@ -6,55 +6,61 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <body class="dashboard-page">
-  <header class="top-bar">
-    <a href="dashboard.html">
-      <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
-    </a>
-    <nav class="nav-icons">
-      <div class="smart-search-container">
-        <input type="text" id="site-search" placeholder="Search..." autocomplete="off" />
-        <div id="search-suggestions" class="suggestions-box"></div>
-      </div>      
-      <a href="articles.html">
-        <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
+  <div class="dashboard-page">
+    <header class="top-bar">
+      <a href="dashboard.html">
+        <img src="assets/logo.svg" alt="ReVive Logo" class="logo">
       </a>
-      <a href="track.html">
-        <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
-      </a>
-      <a href="shop.html">
-        <img src="assets/store.svg" alt="store" class="logo" />
-      </a>
-      <a href="checkout.html" class="cart-icon">
-        <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
-        <span class="cart-badge" id="cart-count">0</span>
-      </a>      
-      <div class="profile-dropdown">
-        <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-        <div class="dropdown-menu"style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
-          <a href="profile.html">Profile</a>
-          <a href="order.html">Order Summary</a>
-          <a href="index.html" id="logout-btn">Logout</a>
-        </div>
-    </nav>
-  </header>
-  </header>
-
+      <nav class="nav-icons">
+        <div class="smart-search-container">
+          <input type="text" id="site-search" placeholder="Search..." autocomplete="off" />
+          <div id="search-suggestions" class="suggestions-box"></div>
+        </div>          
+        <a href="articles.html">
+          <img src="assets/bio-leaves.svg" alt="articles" class="logo" />
+        </a>
+        <a href="track.html">
+          <img src="assets/chart-histogram.svg" alt="chart" class="logo" />
+        </a>
+        <a href="shop.html">
+          <img src="assets/store.svg" alt="store" class="logo" />
+        </a>
+        <a href="checkout.html" class="cart-icon">
+          <img src="assets/shopping-cart.svg" alt="shopping-cart" class="logo" />
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>        
+        <div class="profile-dropdown">
+          <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
+          <span id="greeting-name" class="greeting-name"></span> <!-- 👈 Add this line -->
+          <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
+            <a href="profile.html">Profile</a>
+            <a href="order.html">Order Summary</a>
+            <a href="index.html" id="logout-btn">Logout</a>
+          </div>
+      </nav>
+    </header>
+  </div>
   <main class="content home">
-    <main class="welcome-content">
+    <div class="welcome-content">
       <img src="assets/logo.svg" class="big-logo">
       <h1>Welcome to ReVive</h1>
       <p class="tagline">Think Green. Do Green.</p>
-    <h2>Choose your action:</h2>
-    <ul class="actions-list">
-      <li><a href="articles.html">Find recycling information</a></li>
-      <li><a href="track.html">Track eco-friendly actions</a></li>
-      <li><a href="articles.html">Explore informative articles</a></li>
-      <li><a href="shop.html">Shop eco-friendly products</a></li>
-      <li><a href="profile.html">Update your Profile</a></li>
-    </ul>
-  </main>
- 
+      <h2>Choose your action:</h2>
+      <ul class="actions-list">
+        <li><a href="articles.html">Find recycling information</a></li>
+        <li><a href="track.html">Track eco-friendly actions</a></li>
+        <li><a href="articles.html">Explore informative articles</a></li>
+        <li><a href="shop.html">Shop eco-friendly products</a></li>
+        <li><a href="profile.html">Update your Profile</a></li>
+      </ul>
+    </div>
+  </main>  
+  <footer class="about-revive">
+    <h2>About ReVive</h2>
+    <p>
+      At ReVive, we believe small everyday choices can make a big difference. That’s why we created this space—to make it easier for people like you and me to live more sustainably. Whether you're grabbing a reusable water bottle, learning how to compost for the first time, or tracking your eco-friendly habits, ReVive is here to support you. We’re not about perfection—we’re about progress. Together, let’s build habits that feel good and do good—for ourselves, our communities, and the planet we call home.
+    </p>
+  </footer>  
   <script>
     document.addEventListener("DOMContentLoaded", function () {
     const cartCount = document.getElementById("cart-count");
@@ -221,6 +227,16 @@
         suggestionsBox.style.display = "none";
       }
     });
-  </script>  
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fullName = localStorage.getItem("Name");
+      const greetingEl = document.getElementById("greeting-name");
+      if (fullName && greetingEl) {
+        const firstName = fullName.trim().split(" ")[0];
+        greetingEl.textContent = `Hi, ${firstName}`;
+      }
+    });
+  </script>    
 </body>
 </html>

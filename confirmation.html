@@ -31,7 +31,8 @@
         </a>        
         <div class="profile-dropdown">
           <img src="assets/profileicon.svg" alt="Profile" class="logo profile-icon" />
-          <div class="dropdown-menu"style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
+          <span id="greeting-name" class="greeting-name"></span> <!-- 👈 Add this line -->
+          <div class="dropdown-menu" style="background-color: rgba(255, 255, 255, 0.5); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
             <a href="profile.html">Profile</a>
             <a href="order.html">Order Summary</a>
             <a href="index.html" id="logout-btn">Logout</a>
@@ -213,4 +214,14 @@
     });
   </script>  
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const fullName = localStorage.getItem("Name");
+    const greetingEl = document.getElementById("greeting-name");
+    if (fullName && greetingEl) {
+      const firstName = fullName.trim().split(" ")[0];
+      greetingEl.textContent = `Hi, ${firstName}`;
+    }
+  });
+</script>  
 </html>

@@ -183,7 +183,7 @@ h1 {
 }
 .nav-icons {
   display: flex;
-  gap: 30px; 
+  gap: 40px; 
   align-items: center;
 }
 
@@ -821,7 +821,7 @@ input:focus {
   pointer-events: auto;
 }
 .dashboard-page,
-.dashboard-page * {
+.dashboard-page {
   color: black !important;         
   opacity: 1 !important;          
   font-weight: 600;               
@@ -834,11 +834,6 @@ input:focus {
 .dashboard-page li{
   color: black!important;
   opacity: 1 !important;          
-}
-
-.dashboard-page span {
-  color:white !important;
-  opacity:1!important;
 }
 
 .dashboard-page::before {
@@ -854,7 +849,6 @@ input:focus {
   z-index: 0;
   pointer-events: none;
 }
-
 
 .order-page::before {
   content: "";
@@ -1054,4 +1048,34 @@ input:focus {
 
 #search-btn:hover {
   background-color: rgba(200, 200, 200, 0.7); 
+}
+
+.greeting-name {
+  font-weight: bold;
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #0b0b0b;
+}
+
+.dashboard-page .greeting-name {
+  color: #333;
+}
+
+.about-revive {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  margin-top: 50px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: none;
+  max-width: 800px;
+  margin: 10px auto;
+  font-size: 1.1rem;
+  font-size: 17px;
+  color: #010101;
+  line-height: 1.8;
+}
+.about-revive h2 {
+  margin-bottom: 15px;
+  color: black;
 }
