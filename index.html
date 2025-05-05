@@ -19,6 +19,9 @@
         <input type="password" placeholder="Password">
         <button class="btn">Login</button>
         <a href="profile.html" class="btn" style="display: block; width: 100%; max-width: 220px; text-align: center; margin: 10px auto; box-sizing: border-box;">Sign up</a>
+        <button id="forgot-password" style="background: none; border: none; color: black; text-decoration: underline; margin-top: -12px; font-weight: bold; cursor: pointer;">
+          Forgot Password?
+        </button>        
       </div>
       <div class="login-right">
         <img src="assets/logo.svg" class="big-logo" alt="Logo">
@@ -32,12 +35,29 @@
       const username = document.querySelector('input[type="text"]').value;
       const password = document.querySelector('input[type="password"]').value;
   
-      if (username === "Emily" && password === "greenforest") {
+      const savedPassword = localStorage.getItem("passwordForEmily") || "greenforest";
+  
+      if (username === "Emily" && password === savedPassword) {
         window.location.href = "dashboard.html"; 
       } else {
         alert("Invalid username or password.");
       }
     });
-  </script>  
+  
+    document.getElementById("forgot-password").addEventListener("click", function () {
+      const username = prompt("Enter your username:");
+      if (!username) return;
+  
+      const newPassword = prompt("Enter your new password:");
+      if (!newPassword) return;
+  
+      if (username === "Emily") {
+        localStorage.setItem("passwordForEmily", newPassword);
+        alert("Password updated! Try logging in with your new password.");
+      } else {
+        alert("Username not found.");
+      }
+    });
+  </script>      
 </body>
 </html>
