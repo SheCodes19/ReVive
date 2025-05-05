@@ -234,13 +234,14 @@
             name: shippingInputs[0].value,
             address: shippingInputs[1].value
           };
-          
+          localStorage.setItem("lastShippingInfo", JSON.stringify(shippingData)); 
           localStorage.setItem("cartCount", "0");
           localStorage.setItem("cartItems", JSON.stringify([]));
 
           if (cartCount) cartCount.textContent = "0";
 
           window.location.href = "confirmation.html";
+
 
         });
       }
